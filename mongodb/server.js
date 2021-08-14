@@ -45,14 +45,14 @@ let credentials;
 // Retrieve the Kubernetes environment variables from BINDING in the clouddb-deployment.yaml file
 // Check to make sure that the BINDING environment variable is present
 // If it's not present, then it will throw an error
-if (process.env.BINDING) {
-    credentials = JSON.parse(process.env.BINDING);
+if (process.env.CONNECTION) {
+    credentials = JSON.parse(process.env.CONNECTION);
 }
 
 assert(!util.isUndefined(credentials), "Must be bound to IBM Kubernetes Cluster");
 
 // We now take the first bound MongoDB service and extract its credentials object from BINDING
-let mongodbConn = credentials.connection.mongodb;
+let mongodbConn = credentials.mongodb;
 
 // Read the CA certificate and assign that to the CA variable
 let ca = [Buffer.from(mongodbConn.certificate.certificate_base64, 'base64')];
